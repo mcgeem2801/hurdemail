@@ -1,9 +1,37 @@
-<script>
-function generateEmail() {
-  const name = document.getElementById('name').value;
-  const year = document.getElementById('year').value;
-  
-  const emailContent = `Dear President Hurd,
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Template Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        label, button { display: block; margin-top: 10px; }
+        input, textarea { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; }
+        button { padding: 10px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 5px; }
+        button:hover { background-color: #0056b3; }
+        #draft-email-button { display: none; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <h1>Email Template Generator</h1>
+    <div>
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="year">Graduation Year:</label>
+        <input type="number" id="year" name="year" required>
+        
+        <button type="button" onclick="generateEmail()">Generate and Draft Email</button>
+    </div>
+
+    <button id="draft-email-button" onclick="draftEmail()">Draft Email in Your Mail App</button>
+
+    <script>
+        function generateEmail() {
+            const name = document.getElementById('name').value;
+            const year = document.getElementById('year').value;
+            const emailContent = `Dear President Hurd,
 
 I am reaching out to voice my profound disappointment and concern regarding Lafayette College's recent decision to withdraw funding for the Menstrual Equity Project. This initiative, spearheaded by passionate student advocates like Pepper Prize winner Fatimata Cham, has been instrumental in fostering a more inclusive and equitable environment on campus. The abrupt termination of financial support for this project is disheartening and calls into question the college's commitment to supporting student-led efforts and addressing crucial issues.
 
@@ -19,14 +47,20 @@ Sincerely,
 ${name}
 Lafayette College Class of ${year}`;
 
-  const subject = encodeURIComponent("Concern About Menstrual Equity Project Funding");
-  const body = encodeURIComponent(emailContent);
-  const recipientEmail = "president@lafayette.edu";
-  window.mailtoLink = `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
-  document.getElementById('draft-email-button').style.display = 'inline'; // Make the button visible
-}
+            const subject = encodeURIComponent("Concern About Menstrual Equity Project Funding");
+            const body = encodeURIComponent(emailContent);
+            const recipientEmail = "president@lafayette.edu";
 
-function draftEmail() {
-  window.open(window.mailtoLink); // Use window.open to trigger mail client
-}
-</script>
+            const mailtoLink = `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
+            const draftEmailButton = document.getElementById('draft-email-button');
+            draftEmailButton.href = mailtoLink;
+            draftEmailButton.style.display = 'inline'; // Make the button visible
+        }
+
+        function draftEmail() {
+            const mailtoLink = document.getElementById('draft-email-button').href;
+            window.open(mailtoLink); // Use window.open to trigger mail client
+        }
+    </script>
+</body>
+</html>

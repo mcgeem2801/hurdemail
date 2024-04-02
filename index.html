@@ -1,35 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Template Generator</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  label, button { display: block; margin-top: 10px; }
+  input { padding: 8px; margin-top: 5px; }
+  button { padding: 10px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 5px; }
+  button:hover { background-color: #0056b3; }
+  #draft-email-button { display: none; margin-top: 15px; }
+</style>
+</head>
+<body>
+<h1>Email Template Generator</h1>
+<form id="emailForm">
+  <label for="name">Your Name:</label>
+  <input type="text" id="name" name="name" required>
+  
+  <label for="year">Graduation Year:</label>
+  <input type="number" id="year" name="year" required>
+  
+  <button type="button" onclick="generateEmail()">Generate and Draft Email</button>
+</form>
+
+<a id="draft-email-button">Draft Email in Your Mail App</a>
+
+<script>
 function generateEmail() {
   const name = document.getElementById('name').value;
   const year = document.getElementById('year').value;
 
-  // Your email content
   const emailContent = `Dear President Hurd,
 
-I am reaching out to voice my profound disappointment...
+I am reaching out to voice my profound disappointment and concern regarding Lafayette College's recent decision to withdraw funding for the Menstrual Equity Project. This initiative, spearheaded by passionate student advocates like Pepper Prize winner Fatimata Cham, has been instrumental in fostering a more inclusive and equitable environment on campus. The abrupt termination of financial support for this project is disheartening and calls into question the college's commitment to supporting student-led efforts and addressing crucial issues.
+
+As a proud member of the Lafayette community, I firmly believe that the Menstrual Equity Project is not a mere convenience but a fundamental necessity. By providing free menstrual products across campus, we ensure that all students, regardless of their economic background or biological functions, have access to the resources they need to thrive academically and personally. The relatively modest annual cost of $15,000, which constitutes a minuscule 0.0078% of Lafayette's operating budget, is a small price to pay for the significant impact this project has on the lives of our students.
+
+It is disheartening to see the college backtrack on its commitment to this vital initiative, especially considering the tireless efforts of student advocates who have worked to bring this issue to the forefront. The decision to withdraw funding, particularly in the absence of a staff advocate in the Associate/Assistant Director of Gender and Sexuality programs position, sends a troubling message about the college's priorities and its willingness to stand behind student-led initiatives.
+
+I urge you, President Hurd, to reconsider this decision and engage with the Lafayette community to find a sustainable, long-term solution for the Menstrual Equity Project. As alumni, parents, and supporters, we are ready and willing to lend our time, expertise, and financial support to ensure that this critical initiative continues to thrive. By tapping into the vast network of resources within our community, we can work together to find creative solutions that prioritize the well-being and success of all students.
+
+The Lafayette community looks to you for leadership and expects the college to uphold its values of equity, inclusion, and support for student-led initiatives. I implore you to listen to the concerns of the community, take swift action to reinstate funding for the Menstrual Equity Project, and collaborate with us to develop a long-term plan that ensures its sustainability.
 
 Sincerely,
 ${name}
 Lafayette College Class of ${year}`;
 
-  document.getElementById('email-content').innerText = emailContent;
-  document.getElementById('email-container').style.display = 'block';
-
-  // Update the mailto link with the recipient's email
-  updateMailtoLink(emailContent, name, year);
-}
-
-function updateMailtoLink(emailContent, name, year) {
   const subject = encodeURIComponent("Concern About Menstrual Equity Project Funding");
   const body = encodeURIComponent(emailContent);
-  const recipientEmail = "president@lafayette.edu"; // Recipient's email address
+  const recipientEmail = "president@lafayette.edu";
 
-  // Construct the mailto link with recipient, subject, and body
   const mailtoLink = `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
-
-  // Assuming you have a button or link with id 'draft-email-button'
   const draftEmailButton = document.getElementById('draft-email-button');
-  if (draftEmailButton) {
-    draftEmailButton.href = mailtoLink;
-    draftEmailButton.style.display = 'inline-block'; // Make sure to show the button
-  }
+  draftEmailButton.href = mailtoLink;
+  draftEmailButton.style.display = 'inline';
 }
+</script>
+</body>
+</html>
